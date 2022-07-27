@@ -28,6 +28,7 @@ public class App1 {
 		
 		System.out.println(testFlow.getResult());
 		
+		// 不建议每次都调用shutdown,可以在整个App关闭的时候调用一次shutdown
 		FlowStarter.shutdown();
 		
 	}
