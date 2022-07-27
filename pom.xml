@@ -8,6 +8,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+	<!-- https://mvnrepository.com/artifact/io.github.nobuglady/ladybugflow -->
+	<dependency>
+	    <groupId>io.github.nobuglady</groupId>
+	    <artifactId>ladybugflow</artifactId>
+	    <version>0.0.6</version>
+	</dependency>
 	<dependency>
 	    <groupId>com.rabbitmq</groupId>
 	    <artifactId>amqp-client</artifactId>
