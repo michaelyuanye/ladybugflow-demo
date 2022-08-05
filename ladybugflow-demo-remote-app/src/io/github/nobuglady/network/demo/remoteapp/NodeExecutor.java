@@ -10,23 +10,29 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
  * the License for the specific language governing permissions and limitations under the License.
  */
-package io.github.nobuglady.network.demo.test5;
+package io.github.nobuglady.network.demo.remoteapp;
 
-import io.github.nobuglady.network.fw.FlowRunner;
-import io.github.nobuglady.network.fw.starter.FlowStarter;
+import io.github.nobuglady.network.demo.remoteapp.rabbitmq.RabbitMqSenderCompleteQueue;
+import io.github.nobuglady.network.fw.queue.ready.ReadyNodeResult;
 
 /**
  * 
  * @author NoBugLady
  *
  */
-public class Test5 {
+public class NodeExecutor {
 
-	public static void main(String[] args) {
-		
-		FlowRunner flowRunner = new FlowRunner(new TestFlow5());
-		flowRunner.startFlowFromJson("io/github/nobuglady/network/demo/test5/TestFlow5.json", true);
-		FlowStarter.shutdown();
-		
+	public void onNodeReady(ReadyNodeResult readyNodeResult) {
+
+		System.out.println("run:" + readyNodeResult.getNodeId());
+
+		try {
+			RabbitMqSenderCompleteQueue.send(String.join(",", readyNodeResult.getFlowId(),
+					readyNodeResult.getHistoryId(), readyNodeResult.getNodeId(), "1", "0"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
+
 }

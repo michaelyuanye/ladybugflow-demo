@@ -10,7 +10,7 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
  * the License for the specific language governing permissions and limitations under the License.
  */
-package io.github.nobuglady.network.demo.rabbitmq;
+package io.github.nobuglady.network.demo.remoteapp.rabbitmq;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -22,7 +22,7 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import io.github.nobuglady.network.fw.executor.INodeExecutor;
+import io.github.nobuglady.network.demo.remoteapp.NodeExecutor;
 import io.github.nobuglady.network.fw.queue.ready.ReadyNodeResult;
 
 /**
@@ -37,7 +37,7 @@ public class RabbitMqReceiverReadyQueue {
 	public static Channel channel;
 	public static Connection connection;
 
-	public static void startConsumer(final INodeExecutor nodeExecuter) throws Exception {
+	public static void startConsumer(final NodeExecutor nodeExecuter) throws Exception {
 		
 		connection = ConnectionUtils.getConnection();
 		channel = connection.createChannel();

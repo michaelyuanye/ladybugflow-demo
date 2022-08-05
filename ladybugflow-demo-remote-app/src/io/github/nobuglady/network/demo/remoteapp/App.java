@@ -10,26 +10,23 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
  * the License for the specific language governing permissions and limitations under the License.
  */
-package io.github.nobuglady.network.demo.business2;
+package io.github.nobuglady.network.demo.remoteapp;
 
-import io.github.nobuglady.network.fw.starter.FlowStarter;
+import io.github.nobuglady.network.demo.remoteapp.rabbitmq.RabbitMqReceiverReadyQueue;
 
 /**
  * 
  * @author NoBugLady
  *
  */
-public class App2 {
+public class App {
 
 	public static void main(String[] args) {
 		
-		Flow2 testFlow = new Flow2();
-		testFlow.startFlow(true);
-		
-		System.out.println(testFlow.getResult());
-		
-		// 不建议每次都调用shutdown,可以在整个App关闭的时候调用一次shutdown
-		FlowStarter.shutdown();
-		
+		try {
+			RabbitMqReceiverReadyQueue.startConsumer(new NodeExecutor());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

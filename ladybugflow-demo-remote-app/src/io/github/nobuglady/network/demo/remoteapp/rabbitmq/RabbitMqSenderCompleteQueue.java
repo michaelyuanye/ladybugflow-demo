@@ -10,7 +10,7 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
  * the License for the specific language governing permissions and limitations under the License.
  */
-package io.github.nobuglady.network.demo.rabbitmq;
+package io.github.nobuglady.network.demo.remoteapp.rabbitmq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -20,12 +20,12 @@ import com.rabbitmq.client.Connection;
  * @author NoBugLady
  *
  */
-public class RabbitMqSenderReadyQueue {
+public class RabbitMqSenderCompleteQueue {
 
-	private static final String QUEUE = "QUEUE_READY";
+	private static final String QUEUE = "QUEUE_COMPLETE";
 
 	private static final String EXCHANGE_NAME = "EXCHANGE_NAME";
-	private static final String QUEUE_NAME = "QUEUE_NAME_READY";
+	private static final String QUEUE_NAME = "QUEUE_NAME_COMPLETE";
 	private static final String ROUTING_KEY = "ROUTING_KEY";
 
 	public static void send(String message) throws Exception {
