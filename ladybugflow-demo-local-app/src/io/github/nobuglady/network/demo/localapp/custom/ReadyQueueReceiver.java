@@ -13,30 +13,19 @@
 package io.github.nobuglady.network.demo.localapp.custom;
 
 import io.github.nobuglady.network.demo.localapp.rabbitmq.RabbitMqReceiverReadyQueue;
-import io.github.nobuglady.network.demo.localapp.rabbitmq.RabbitMqSenderReadyQueue;
-import io.github.nobuglady.network.fw.executor.INodeExecutor;
-import io.github.nobuglady.network.fw.queue.ready.IReadyQueue;
+import io.github.nobuglady.network.fw.component.IReadyQueueReceiver;
 
 /**
  * 
  * @author NoBugLady
  *
  */
-public class ReadyQueueManager implements IReadyQueue {
+public class ReadyQueueReceiver implements IReadyQueueReceiver {
 
-	public void putReadyNode(String flowId, String historyId, String nodeId) {
-
-		try {
-			RabbitMqSenderReadyQueue.send(String.join(",", flowId, historyId, nodeId));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void startConsumerThread(INodeExecutor nodeExecuter) {
+	public void startConsumerThread() {
 
 		try {
-			RabbitMqReceiverReadyQueue.startConsumer(nodeExecuter);
+			RabbitMqReceiverReadyQueue.startConsumer();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

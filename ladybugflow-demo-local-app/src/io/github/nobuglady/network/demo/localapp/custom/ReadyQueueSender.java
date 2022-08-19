@@ -12,30 +12,23 @@
  */
 package io.github.nobuglady.network.demo.localapp.custom;
 
-import io.github.nobuglady.network.fw.component.FlowComponentFactory;
-import io.github.nobuglady.network.fw.component.INodeExecutor;
-import io.github.nobuglady.network.fw.constant.NodeStatusDetail;
-import io.github.nobuglady.network.fw.queue.ready.ReadyNodeResult;
+import io.github.nobuglady.network.demo.localapp.rabbitmq.RabbitMqSenderReadyQueue;
+import io.github.nobuglady.network.fw.component.IReadyQueueSender;
 
 /**
  * 
  * @author NoBugLady
  *
  */
-public class NodeExecutor implements INodeExecutor {
+public class ReadyQueueSender implements IReadyQueueSender {
 
-	public void onNodeReady(ReadyNodeResult readyNodeResult) {
-		
-		System.out.println("run:" + readyNodeResult.getNodeId());
-		
-		FlowComponentFactory.getCompleteQueueSender().putCompleteNode(readyNodeResult.getFlowId(), readyNodeResult.getHistoryId(),
-				readyNodeResult.getNodeId(), NodeStatusDetail.COMPLETE_SUCCESS, "0");
+	public void putReadyNode(String flowId, String historyId, String nodeId) {
 
-	}
-
-	public void shutdown() {
-		// TODO Auto-generated method stub
-
+		try {
+			RabbitMqSenderReadyQueue.send(String.join(",", flowId, historyId, nodeId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

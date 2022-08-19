@@ -13,31 +13,19 @@
 package io.github.nobuglady.network.demo.localapp.custom;
 
 import io.github.nobuglady.network.demo.localapp.rabbitmq.RabbitMqReceiverCompleteQueue;
-import io.github.nobuglady.network.demo.localapp.rabbitmq.RabbitMqSenderCompleteQueue;
-import io.github.nobuglady.network.fw.INodeCompleteListener;
-import io.github.nobuglady.network.fw.queue.complete.ICompleteQueue;
+import io.github.nobuglady.network.fw.component.ICompleteQueueReceiver;
 
 /**
  * 
  * @author NoBugLady
  *
  */
-public class CompleteQueueManager implements ICompleteQueue {
+public class CompleteQueueReceiver implements ICompleteQueueReceiver {
 
-	public void startConsumerThread(INodeCompleteListener nodeCompleteListener) {
-
-		try {
-			RabbitMqReceiverCompleteQueue.startConsumer(nodeCompleteListener);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void putCompleteNode(String flowId, String historyId, String nodeId, int nodeStatus, String nodeResult) {
+	public void startConsumerThread() {
 
 		try {
-			RabbitMqSenderCompleteQueue
-					.send(String.join(",", flowId, historyId, nodeId, String.valueOf(nodeStatus), nodeResult));
+			RabbitMqReceiverCompleteQueue.startConsumer();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

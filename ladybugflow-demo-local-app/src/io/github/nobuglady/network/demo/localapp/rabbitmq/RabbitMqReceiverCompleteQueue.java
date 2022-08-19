@@ -22,7 +22,7 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import io.github.nobuglady.network.fw.INodeCompleteListener;
+import io.github.nobuglady.network.fw.component.FlowComponentFactory;
 import io.github.nobuglady.network.fw.queue.complete.CompleteNodeResult;
 
 /**
@@ -37,7 +37,7 @@ public class RabbitMqReceiverCompleteQueue {
 	public static Channel channel;
 	public static Connection connection;
 
-	public static void startConsumer(final INodeCompleteListener nodeCompleteListener) throws Exception {
+	public static void startConsumer() throws Exception {
 
 		connection = ConnectionUtils.getConnection();
 		channel = connection.createChannel();
@@ -65,7 +65,7 @@ public class RabbitMqReceiverCompleteQueue {
 				nodeResult.setNodeStatus(nodeStatus);
 				nodeResult.setNodeResult(nodeResultStr);
 				
-				nodeCompleteListener.onNodeComplete(nodeResult);
+				FlowComponentFactory.getFlowMarker().onNodeComplete(nodeResult);
 			}
 		};
 		
